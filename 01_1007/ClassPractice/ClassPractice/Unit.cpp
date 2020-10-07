@@ -2,6 +2,8 @@
 #include "Unit.h"
 #include "Definition.h"
 
+Status status;
+
 Unit::Unit() {
 	status._hp = 0;
 	status._str = 0;

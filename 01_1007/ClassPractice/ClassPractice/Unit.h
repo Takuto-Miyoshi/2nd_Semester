@@ -9,9 +9,6 @@ public:
 
 	// ステータスの表示
 	void PrintStatus();
-
-private:
-	Status status;
 };
 
 #endif // UNIT_H_
