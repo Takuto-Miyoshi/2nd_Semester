@@ -7,7 +7,10 @@ public:
 	Unit();
 	~Unit();
 
-public:
+	// ステータスの表示
+	void PrintStatus();
+
+private:
 	int m_hp,  // 体力
 		m_str, // 攻撃力
 		m_mag, // 魔法力
