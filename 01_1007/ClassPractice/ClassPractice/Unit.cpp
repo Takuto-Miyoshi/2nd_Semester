@@ -1,15 +1,16 @@
 #include "Common.h"
 #include "Unit.h"
+#include "Definition.h"
 
 Unit::Unit() {
-	m_hp = 0;
-	m_str = 0;
-	m_mag = 0;
-	m_tec = 0;
-	m_spd = 0;
-	m_def = 0;
-	m_luc = 0;
-	m_mde = 0;
+	status._hp = 0;
+	status._str = 0;
+	status._mag = 0;
+	status._tec = 0;
+	status._spd = 0;
+	status._def = 0;
+	status._luc = 0;
+	status._mde = 0;
 }
 
 Unit::~Unit() {
@@ -17,12 +18,12 @@ Unit::~Unit() {
 }
 
 void Unit::PrintStatus() {
-	printf(" HP :%3d \n", m_hp);
-	printf("STR :%3d \n", m_str);
-	printf("MAG :%3d \n", m_mag);
-	printf("TEC :%3d \n", m_tec);
-	printf("SPD :%3d \n", m_spd);
-	printf("DEF :%3d \n", m_def);
-	printf("LUC :%3d \n", m_luc);
-	printf("MDE :%3d \n", m_mde);
+	printf(" HP :%3d \n", status._hp);
+	printf("STR :%3d \n", status._str);
+	printf("MAG :%3d \n", status._mag);
+	printf("TEC :%3d \n", status._tec);
+	printf("SPD :%3d \n", status._spd);
+	printf("DEF :%3d \n", status._def);
+	printf("LUC :%3d \n", status._luc);
+	printf("MDE :%3d \n", status._mde);
 }
