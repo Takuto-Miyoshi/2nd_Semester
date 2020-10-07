@@ -1,7 +1,7 @@
 #ifndef DEFINITION_H_
 #define DEFINITION_H_
 
-// ユニット情報の構造体
+// ユニットステータス
 struct Status
 {
 	int _hp;  // 体力
