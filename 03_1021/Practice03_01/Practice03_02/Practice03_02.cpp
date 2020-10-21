@@ -1,20 +1,47 @@
-﻿// Practice03_02.cpp : このファイルには 'main' 関数が含まれています。プログラム実行の開始と終了がそこで行われます。
-//
+﻿
+#include <stdio.h>
+#include <stdlib.h>
+#include <string>
 
-#include <iostream>
+#include "Base.h"
+#include "Enemy.h"
+#include "Player.h"
 
-int main()
+// ステータス表示
+void PrintStatus ( std::string name, Base* target );
+
+int main ()
 {
-    std::cout << "Hello World!\n";
+	Player player;
+	player.SetMoveSpeed ( 5.0f );
+
+	Enemy enemy;
+	enemy.SetHp ( 100 );
+
+	Base* pBase = nullptr;
+
+	printf ( "-------------\n" );
+	printf ( "PRACTICE03_02\n" );
+	printf ( "-------------\n" );
+
+	pBase = &player;
+	PrintStatus ( "Player", pBase );
+	pBase = &enemy;
+	PrintStatus ( "Enemy", pBase );
+
+	system ( "pause" );
+	return 0;
 }
 
-// プログラムの実行: Ctrl + F5 または [デバッグ] > [デバッグなしで開始] メニュー
-// プログラムのデバッグ: F5 または [デバッグ] > [デバッグの開始] メニュー
+void PrintStatus ( std::string name, Base* target ) {
+	if ( target == nullptr ) {
+		return;
+	}
 
-// 作業を開始するためのヒント: 
-//    1. ソリューション エクスプローラー ウィンドウを使用してファイルを追加/管理します 
-//   2. チーム エクスプローラー ウィンドウを使用してソース管理に接続します
-//   3. 出力ウィンドウを使用して、ビルド出力とその他のメッセージを表示します
-//   4. エラー一覧ウィンドウを使用してエラーを表示します
-//   5. [プロジェクト] > [新しい項目の追加] と移動して新しいコード ファイルを作成するか、[プロジェクト] > [既存の項目の追加] と移動して既存のコード ファイルをプロジェクトに追加します
-//   6. 後ほどこのプロジェクトを再び開く場合、[ファイル] > [開く] > [プロジェクト] と移動して .sln ファイルを選択します
+	printf ( "%s Status\n", name.c_str() );
+	printf ( "hp = %d\n", target->GetHp () );
+	printf ( "PosX = %0.2f\n", target->GetPosX () );
+	printf ( "PosY = %0.2f\n", target->GetPosY () );
+	printf ( "MoveSpeed = %0.2f\n", target->GetMoveSpeed () );
+	printf ( "\n" );
+}
