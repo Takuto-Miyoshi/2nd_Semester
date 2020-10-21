@@ -3,6 +3,7 @@
 #define ENEMY_H
 
 #include "Base.h"
+#include <stdio.h>
 
 //------------------------------
 // エネミークラス
@@ -16,6 +17,9 @@ public:
 public:
 	void Exec();
 	void Draw();
+
+	// 引数の矩形情報と、自分が当たっているか判定
+	bool CheckHit ( int x, int y, int width, int height );
 
 private:
 	int m_Routine;
