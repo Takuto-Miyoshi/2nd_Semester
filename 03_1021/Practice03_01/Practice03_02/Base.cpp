@@ -9,10 +9,12 @@ Base::Base () {
 
 	m_width  = 10;
 	m_height = 10;
+
+	printf( "Base : constructor\n" );
 }
 
 Base::~Base () {
-
+	printf( "Base : destructor\n" );
 }
 
 bool Base::CheckHit ( int x, int y, int width, int height ) {

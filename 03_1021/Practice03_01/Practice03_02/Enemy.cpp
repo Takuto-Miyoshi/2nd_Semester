@@ -3,10 +3,12 @@
 
 Enemy::Enemy () {
 	m_Routine = 0;
+
+	printf( "Enemy : constructor\n" );
 }
 
 Enemy::~Enemy (){
-
+	printf( "Enemy : destructor\n" );
 }
 
 void Enemy::Exec (){
