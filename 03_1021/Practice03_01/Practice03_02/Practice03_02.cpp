@@ -6,12 +6,17 @@
 #include "Base.h"
 #include "Enemy.h"
 #include "Player.h"
+#include "EnemyManager.h"
+
+//#define PRACTICE03_1021	// 10月21日授業分
 
 // ステータス表示
 void PrintStatus ( std::string name, Base* target );
 
 int main ()
 {
+#ifdef PRACTICE03_1021
+
 	//Player player;
 	//player.SetMoveSpeed( 5.0f );
 	Base* player = new Player();
@@ -47,6 +52,38 @@ int main ()
 	player = nullptr;
 	delete enemy;
 	enemy = nullptr;
+
+#else	// 10月28日に追加した分
+
+#endif
+
+	EnemyManager* enemyMng = new EnemyManager();
+	Base* pEnemy = nullptr;
+	Base* ptr;
+
+	for ( std::vector<Base*>::iterator itr = m_Enemies.begin(); itr != m_Enemies.end(); ++itr ) {
+		if ( *itr == ptr ) {
+			delete *itr;
+			*itr = nullptr;
+			return true;
+		}
+		return false;
+	}
+
+	enemyMng->CreateEnemy(0);
+	enemyMng->CreateEnemy(1);
+	pEnemy = enemyMng->CreateEnemy( 2 );
+	enemyMng->CreateEnemy(3);
+	enemyMng->CreateEnemy(4);
+	enemyMng->CreateEnemy(4);
+	enemyMng->CreateEnemy(4);
+
+	enemyMng->DestroyEnemy( pEnemy );
+
+	enemyMng->Exec();
+	enemyMng->Draw();
+
+	pEnemy = enemyMng->CheckHit( 10, 10, 0, 20 );
 
 	system ( "pause" );
 	return 0;
