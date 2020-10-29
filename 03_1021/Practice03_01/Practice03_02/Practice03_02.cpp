@@ -44,6 +44,8 @@ int main ()
 
 	// 別々のクラスを１つの処理にまとめあげることができる
 	for ( int i = 0; i < 2; i++ ) {
+		pBase[i]->Exec();
+		pBase[i]->Draw();
 		pBase[i]->CheckHit( 10, 10, 20, 30 );
 		PrintStatus( name[i].c_str(), pBase[i] );
 	}
@@ -59,16 +61,6 @@ int main ()
 
 	EnemyManager* enemyMng = new EnemyManager();
 	Base* pEnemy = nullptr;
-	Base* ptr;
-
-	for ( std::vector<Base*>::iterator itr = m_Enemies.begin(); itr != m_Enemies.end(); ++itr ) {
-		if ( *itr == ptr ) {
-			delete *itr;
-			*itr = nullptr;
-			return true;
-		}
-		return false;
-	}
 
 	enemyMng->CreateEnemy(0);
 	enemyMng->CreateEnemy(1);
