@@ -139,7 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CharacterBase.cpp" />
+    <ClCompile Include="Enemy00.cpp" />
     <ClCompile Include="Practice05_03_ClassReference.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CharacterBase.h" />
+    <ClInclude Include="Enemy00.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
