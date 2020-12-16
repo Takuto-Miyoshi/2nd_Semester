@@ -13,9 +13,7 @@ ResultScene::~ResultScene(){
 }
 
 void ResultScene::Exec(){
-	// @@Dummy 遷移確認用の仮処理
-	step++;
-	if( step >= 120 )SceneManager::SetNextScene( SceneID::Title );
+
 }
 
 void ResultScene::Draw(){
@@ -23,7 +21,18 @@ void ResultScene::Draw(){
 }
 
 bool ResultScene::IsEnd() const{
-	// @@Dummy 遷移確認用の仮処理
-	return ( step >= 120 );
+
+	return false;
 }
 
+void ResultScene::StartJingle(){
+
+}
+
+void ResultScene::Input(){
+
+}
+
+void ResultScene::ClearJingle(){
+
+}

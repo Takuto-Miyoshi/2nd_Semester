@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Manager\GameManager.cpp" />
     <ClCompile Include="Source\Manager\SceneManager.cpp" />
     <ClCompile Include="Source\Script\InGameScene.cpp" />
     <ClCompile Include="Source\Script\ResultScene.cpp" />
@@ -28,12 +29,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Definition.h" />
+    <ClInclude Include="Source\KeyDefinition.h" />
+    <ClInclude Include="Source\Manager\GameManager.h" />
+    <ClInclude Include="Source\Manager\InputManager.h" />
     <ClInclude Include="Source\Manager\SceneManager.h" />
     <ClInclude Include="Source\Script\InGameScene.h" />
     <ClInclude Include="Source\Script\ResultScene.h" />
     <ClInclude Include="Source\Script\SceneBase.h" />
     <ClInclude Include="Source\Script\TitleScene.h" />
     <ClInclude Include="Source\Singleton.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Source\Manager\InputManager.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

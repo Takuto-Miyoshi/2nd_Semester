@@ -12,6 +12,12 @@ public:
 
 	bool IsEnd() const;
 
+	void StartJingle();
+
+	void Input();
+
+	void ClearJingle();
+
 };
 
 #endif RESULT_SCENE_H

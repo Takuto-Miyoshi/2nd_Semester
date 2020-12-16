@@ -3,9 +3,17 @@
 #include "SceneBase.h"
 #include "TitleScene.h"
 #include "../Manager/SceneManager.h"
+#include "../Manager/InputManager.h"
+#include "../Manager/GameManager.h"
+
+enum{
+	Step_LogoIn,
+	Step_Input,
+	Step_End
+};
 
 TitleScene::TitleScene(){
-
+	step = Step_LogoIn;
 }
 
 TitleScene::~TitleScene(){
@@ -13,9 +21,12 @@ TitleScene::~TitleScene(){
 }
 
 void TitleScene::Exec(){
-	// @@Dummy 遷移確認用の仮処理
-	step++;
-	if( step >= 120 )SceneManager::SetNextScene( SceneID::InGame );
+	switch( step )
+	{
+	case Step_LogoIn: LogoIn(); break;
+	case Step_Input: Input(); break;
+	default:break;
+	}
 }
 
 void TitleScene::Draw(){
@@ -23,7 +34,19 @@ void TitleScene::Draw(){
 }
 
 bool TitleScene::IsEnd() const{
-	// @@Dummy 遷移確認用の仮処理
-	return ( step >= 120 );
+	return ( step == Step_End );
+}
+
+void TitleScene::LogoIn(){
+	step = Step_Input;
+}
+
+void TitleScene::Input(){
+	InputManager* pInputMng = InputManager::GetInstance();
+
+	if( pInputMng->IsPush( KeyType::Enter ) ){
+		step = Step_End;
+		SceneManager::GetInstance()->SetNextScene( SceneID::InGame );
+	}
 }
 

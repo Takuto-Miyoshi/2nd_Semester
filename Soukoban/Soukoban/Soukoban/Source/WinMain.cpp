@@ -1,9 +1,8 @@
 ﻿
 #include "DxLib.h"
 #include "Manager/SceneManager.h"
-
-// @@Dummy
-#include "Singleton.h"
+#include "Manager/InputManager.h"
+#include "Manager/GameManager.h"
 
 const int WINDOW_WIDTH = 640;
 const int WINDOW_HEIGHT = 480;
@@ -21,7 +20,9 @@ int WINAPI WinMain( _In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
 	SetDrawScreen( DX_SCREEN_BACK );
 
 	// 管理クラスの作成
-	SceneManager* pSceneManager = new SceneManager();
+	GameManager::CreateInstance();
+	InputManager::CreateInstance();
+	SceneManager::CreateInstance();
 
 	// メインループ
 	while( true )
@@ -30,10 +31,11 @@ int WINAPI WinMain( _In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
 		clsDx();
 
 		// 処理
-		pSceneManager->Exec();
+		InputManager::GetInstance()->Update();
+		SceneManager::GetInstance()->Exec();
 
 		// 描画
-		pSceneManager->Draw();
+		SceneManager::GetInstance()->Draw();
 
 		// -1 が返ってきたらループを抜ける
 		if( ProcessMessage() < 0 ) break;
@@ -43,8 +45,9 @@ int WINAPI WinMain( _In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
 		ScreenFlip();
 	}
 
-	delete pSceneManager;
-	pSceneManager = nullptr;
+	SceneManager::DestroyInstance();
+	InputManager::DestroyInstance();
+	GameManager::DestroyInstance();
 
 	DxLib_End();
 	return 0;

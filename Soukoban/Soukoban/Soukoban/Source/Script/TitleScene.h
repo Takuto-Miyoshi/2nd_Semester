@@ -12,6 +12,10 @@ public:
 
 	bool IsEnd() const;
 
+	void LogoIn();
+
+	void Input();
+
 };
 
 #endif TITLE_SCENE_H
