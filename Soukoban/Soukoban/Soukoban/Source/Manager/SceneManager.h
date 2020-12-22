@@ -23,6 +23,7 @@ private:
 private:
 	class SceneBase* pScene;		// 実行中のシーン
 	static SceneID nextSceneID;		// 次に作るシーンのID
+};
 
 #if 0
 //------------
@@ -55,6 +56,5 @@ public:
 // 初期化
 SceneManager* Singleton<SceneManager>::pInstance = nullptr;
 #endif
-};
 
 #endif // !scene_manager_h

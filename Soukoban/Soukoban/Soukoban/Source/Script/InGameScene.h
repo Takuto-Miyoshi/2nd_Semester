@@ -2,16 +2,20 @@
 #ifndef IN_GAME_SCENE_H
 #define IN_GAME_SCENE_H
 
+#include "SceneBase.h"
+#include "../Definition.h"
+
 class InGameScene : public SceneBase{
 public:
 	InGameScene();
-	~InGameScene();
+	virtual ~InGameScene();
 
-	void Exec();
-	void Draw();
+	virtual void Exec();
+	virtual void Draw();
 
-	bool IsEnd() const;
+	virtual bool IsEnd() const;
 
+private:
 	void StartJingle();
 
 	void Input();
@@ -19,9 +23,9 @@ public:
 	void ClearJingle();
 
 private:
+	int stageData[STAGE_HEIGHT][STAGE_WIDTH];
 	int playerX;
 	int playerY;
-	enum ObjectType stageData[STAGE_HEIGHT][STAGE_WIDTH];
 };
 
 #endif IN_GAME_SCENE_H

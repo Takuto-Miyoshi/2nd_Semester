@@ -14,10 +14,7 @@ private:
 		bool on;	// 押下されている
 		bool pull;	// 離された瞬間
 
-		KeyState()
-			:old( false ), push( false ), on( false ), pull( false ){
-
-		}
+		KeyState() :old( false ), push( false ), on( false ), pull( false ){}
 	};
 
 public:

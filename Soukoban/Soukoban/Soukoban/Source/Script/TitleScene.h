@@ -2,16 +2,19 @@
 #ifndef TITLE_SCENE_H
 #define TITLE_SCENE_H
 
+#include "SceneBase.h"
+
 class TitleScene : public SceneBase{
 public:
 	TitleScene();
-	~TitleScene();
+	virtual ~TitleScene();
 
-	void Exec();
-	void Draw();
+	virtual void Exec();
+	virtual void Draw();
 
-	bool IsEnd() const;
+	virtual bool IsEnd() const;
 
+private:
 	void LogoIn();
 
 	void Input();

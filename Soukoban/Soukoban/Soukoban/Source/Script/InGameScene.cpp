@@ -1,11 +1,8 @@
 ﻿
-#include "DxLib.h"
-#include "../Definition.h"
-#include "SceneBase.h"
 #include "InGameScene.h"
+#include "DxLib.h"
 #include "../Manager/SceneManager.h"
 #include "../Manager/InputManager.h"
-#include "../Manager/GameManager.h"
 
 enum{
 	Step_StartJingle,
@@ -30,26 +27,19 @@ const int SampleStage[STAGE_HEIGHT][STAGE_WIDTH] = {
 	0,0,1,1,1,0,1,1,1,0,0,
 };
 
-InGameScene::InGameScene()
-	:playerX( 0 ), playerY( 0 ){
+InGameScene::InGameScene():playerX( 0 ), playerY( 0 ){
 
 	for( int y = 0; y < STAGE_HEIGHT; y++ ){
 		for( int x = 0; x < STAGE_WIDTH; x++ ){
-			switch( SampleStage[y][x] )
-			{
-			case 0: stageData[y][x] = ObjectType::Ground; break;
-			case 1: stageData[y][x] = ObjectType::Wall; break;
-			case 2: stageData[y][x] = ObjectType::Ground; break;
+			stageData[y][x] = SampleStage[y][x];
+			if( stageData[y][x] == ObjectType::Player ){
 				playerX = x;
 				playerY = y;
-				break;
-			case 3: stageData[y][x] = ObjectType::Target; break;
-			case 4: stageData[y][x] = ObjectType::UnsetCrate; break;
-			case 7: stageData[y][x] = ObjectType::SetCrate; break;
-			default: break;
+				stageData[y][x] = ObjectType::Ground;
 			}
 		}
 	}
+	step = Step_StartJingle;
 }
 
 InGameScene::~InGameScene(){
@@ -67,11 +57,37 @@ void InGameScene::Exec(){
 }
 
 void InGameScene::Draw(){
-	DrawString( 20, 20, "InGameScene", GetColor( 0, 0, 0 ) );
+	// ステージの中身と、プレイヤーを描画(DXライブラリのDrawBoxを使用)
+// 	int DrawBox( int x1 , int y1 , int x2 , int y2 , unsigned int Color , int FillFlag );
+
+// 23日までには完成させておく
+	// m_StageDataの配列の中身をみて、それぞれの四角形を描画する
+	//	ObjectType_Ground,			// 0 なし
+	//	ObjectType_Wall,			// 1 白(255, 255, 255)
+	//	ObjectType_Target,			// 3 赤(255,   0,   0)
+	//	ObjectType_UnsetCrate,		// 4 紫(255,   0, 255)
+	//	ObjectType_SetCrate = 7,	// 7 緑(  0, 255,   0)
+
+	for( int y = 0; y < STAGE_HEIGHT; y++ ){
+		for( int x = 0; x < STAGE_WIDTH; x++ ){
+			int colorTemp = 0;
+			switch( stageData[y][x] ){
+			case ObjectType::Wall:		 colorTemp = GetColor( 255, 255, 255 ); break;
+			case ObjectType::Player:	 colorTemp = GetColor( 0, 0, 255 ); break;
+			case ObjectType::Target:	 colorTemp = GetColor( 255, 0, 0 ); break;
+			case ObjectType::UnsetCrate: colorTemp = GetColor( 255, 0, 255 ); break;
+			case ObjectType::SetCrate:	 colorTemp = GetColor( 0, 255, 0 ); break;
+			default: break;
+			}
+			DrawBox( x * CHIP_WIDTH, y * CHIP_HEIGHT, x * CHIP_WIDTH + CHIP_WIDTH, y * CHIP_HEIGHT + CHIP_HEIGHT, colorTemp, true );
+		}
+	}
+
+	//DrawString( 20, 20, "InGameScene", GetColor( 0, 0, 0 ) );
 }
 
 bool InGameScene::IsEnd() const{
-	return false;
+	return ( step == Step_End );
 }
 
 void InGameScene::StartJingle(){
@@ -79,13 +95,12 @@ void InGameScene::StartJingle(){
 }
 
 void InGameScene::Input(){
-	InputManager* pInputMng = InputManager::GetInstance();
-	if( pInputMng->IsPush( KeyType::Enter ) ){
+	if( InputManager::GetInstance()->IsPush( KeyType::Enter ) ){
 		step = Step_ClearJingle;
 	}
 }
 
 void InGameScene::ClearJingle(){
 	step = Step_End;
-	SceneManager::GetInstance()->SetNextScene( SceneID::Result );
+	SceneManager::GetInstance()->SetNextScene( SceneID::id_Result );
 }

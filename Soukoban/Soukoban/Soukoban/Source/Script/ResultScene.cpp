@@ -1,11 +1,16 @@
 ﻿
-#include "DxLib.h"
-#include "SceneBase.h"
 #include "ResultScene.h"
+#include "DxLib.h"
 #include "../Manager/SceneManager.h"
+#include "../Manager/InputManager.h"
+
+enum{
+	Step_Input,
+	Step_End
+};
 
 ResultScene::ResultScene(){
-
+	step = Step_Input;
 }
 
 ResultScene::~ResultScene(){
@@ -13,7 +18,11 @@ ResultScene::~ResultScene(){
 }
 
 void ResultScene::Exec(){
-
+	switch( step )
+	{
+	case Step_Input: Input(); break;
+	default:	break;
+	}
 }
 
 void ResultScene::Draw(){
@@ -22,17 +31,12 @@ void ResultScene::Draw(){
 
 bool ResultScene::IsEnd() const{
 
-	return false;
-}
-
-void ResultScene::StartJingle(){
-
+	return ( step == Step_End );
 }
 
 void ResultScene::Input(){
-
-}
-
-void ResultScene::ClearJingle(){
-
+	if( InputManager::GetInstance()->IsPush( KeyType::Enter ) ){
+		step = Step_End;
+		SceneManager::GetInstance()->SetNextScene( SceneID::id_Title );
+	}
 }

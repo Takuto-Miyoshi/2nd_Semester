@@ -1,10 +1,8 @@
 ﻿
-#include "DxLib.h"
-#include "SceneBase.h"
 #include "TitleScene.h"
+#include "DxLib.h"
 #include "../Manager/SceneManager.h"
 #include "../Manager/InputManager.h"
-#include "../Manager/GameManager.h"
 
 enum{
 	Step_LogoIn,
@@ -42,11 +40,9 @@ void TitleScene::LogoIn(){
 }
 
 void TitleScene::Input(){
-	InputManager* pInputMng = InputManager::GetInstance();
-
-	if( pInputMng->IsPush( KeyType::Enter ) ){
+	if( InputManager::GetInstance()->IsPush( KeyType::Enter ) ){
 		step = Step_End;
-		SceneManager::GetInstance()->SetNextScene( SceneID::InGame );
+		SceneManager::GetInstance()->SetNextScene( SceneID::id_InGame );
 	}
 }
 

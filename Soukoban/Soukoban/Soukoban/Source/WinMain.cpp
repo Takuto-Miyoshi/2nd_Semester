@@ -6,12 +6,13 @@
 
 const int WINDOW_WIDTH = 640;
 const int WINDOW_HEIGHT = 480;
+const int COLOR_BIT = 32;
 
 int WINAPI WinMain( _In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow ){
 
 	SetOutApplicationLogValidFlag( false );				// ログ出力
 	ChangeWindowMode( true );							// ウィンドウモード
-	SetGraphMode( WINDOW_WIDTH, WINDOW_HEIGHT, 32 );	// 画面モード変更
+	SetGraphMode( WINDOW_WIDTH, WINDOW_HEIGHT, COLOR_BIT );	// 画面モード変更
 	SetBackgroundColor( 125, 125, 125 );				// 背景色変更
 	SetMainWindowText( "My倉庫番" );					// メニューバーのタイトル変更
 

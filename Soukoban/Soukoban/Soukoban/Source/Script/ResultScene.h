@@ -2,21 +2,20 @@
 #ifndef RESULT_SCENE_H
 #define RESULT_SCENE_H
 
+#include "SceneBase.h"
+
 class ResultScene : public SceneBase{
 public:
 	ResultScene();
-	~ResultScene();
+	virtual ~ResultScene();
 
-	void Exec();
-	void Draw();
+	virtual void Exec();
+	virtual void Draw();
 
-	bool IsEnd() const;
+	virtual bool IsEnd() const;
 
-	void StartJingle();
-
+private:
 	void Input();
-
-	void ClearJingle();
 
 };
 

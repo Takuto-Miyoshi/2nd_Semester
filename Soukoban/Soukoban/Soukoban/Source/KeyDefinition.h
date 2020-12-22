@@ -1,6 +1,6 @@
 ﻿
-#ifndef KEY_DEFINITION_H
-#define KEY_DEFINITION_H
+#ifndef KEY_DEFINITION
+#define KEY_DEFINITION
 
 #include "DxLib.h"
 
@@ -25,4 +25,4 @@ const int KEY_ASSIGN[KeyType::Max] = {
 	KEY_INPUT_R			//			Reset
 };
 
-#endif // !KEY_DEFINITION_H
+#endif // !KEY_DEFINITION
