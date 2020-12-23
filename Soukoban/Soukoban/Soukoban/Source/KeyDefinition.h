@@ -6,17 +6,17 @@
 
 enum KeyType
 {
-	Up,		// 上移動
-	Down,	// 下移動
-	Left,	// 左移動
-	Right,	// 右移動
-	Enter,	// 決定
-	Reset,	// リセット
+	Key_Up,		// 上移動
+	Key_Down,	// 下移動
+	Key_Left,	// 左移動
+	Key_Right,	// 右移動
+	Key_Enter,	// 決定
+	Key_Reset,	// リセット
 
-	Max		// キーの種類の数
+	Key_Max		// キーの種類の数
 };
 
-const int KEY_ASSIGN[KeyType::Max] = {
+const int KEY_ASSIGN[KeyType::Key_Max] = {
 	KEY_INPUT_UP,		// KeyType	Up
 	KEY_INPUT_DOWN,		//			Down
 	KEY_INPUT_LEFT,		//			Left

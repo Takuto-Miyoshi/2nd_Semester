@@ -40,7 +40,7 @@
     <ClInclude Include="Source\Singleton.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Source\Manager\InputManager.cpp" />
+    <ClCompile Include="Source\Manager\InputManager.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

@@ -32,10 +32,10 @@ InGameScene::InGameScene():playerX( 0 ), playerY( 0 ){
 	for( int y = 0; y < STAGE_HEIGHT; y++ ){
 		for( int x = 0; x < STAGE_WIDTH; x++ ){
 			stageData[y][x] = SampleStage[y][x];
-			if( stageData[y][x] == ObjectType::Player ){
+			if( stageData[y][x] == ObjectType::Obj_Player ){
 				playerX = x;
 				playerY = y;
-				stageData[y][x] = ObjectType::Ground;
+				stageData[y][x] = ObjectType::Obj_Ground;
 			}
 		}
 	}
@@ -72,16 +72,17 @@ void InGameScene::Draw(){
 		for( int x = 0; x < STAGE_WIDTH; x++ ){
 			int colorTemp = 0;
 			switch( stageData[y][x] ){
-			case ObjectType::Wall:		 colorTemp = GetColor( 255, 255, 255 ); break;
-			case ObjectType::Player:	 colorTemp = GetColor( 0, 0, 255 ); break;
-			case ObjectType::Target:	 colorTemp = GetColor( 255, 0, 0 ); break;
-			case ObjectType::UnsetCrate: colorTemp = GetColor( 255, 0, 255 ); break;
-			case ObjectType::SetCrate:	 colorTemp = GetColor( 0, 255, 0 ); break;
+			case ObjectType::Obj_Wall:		 colorTemp = GetColor( 255, 255, 255 ); break;
+			case ObjectType::Obj_Target:	 colorTemp = GetColor( 255, 0, 0 ); break;
+			case ObjectType::Obj_UnsetCrate: colorTemp = GetColor( 255, 0, 255 ); break;
+			case ObjectType::Obj_SetCrate:	 colorTemp = GetColor( 0, 255, 0 ); break;
 			default: break;
 			}
 			DrawBox( x * CHIP_WIDTH, y * CHIP_HEIGHT, x * CHIP_WIDTH + CHIP_WIDTH, y * CHIP_HEIGHT + CHIP_HEIGHT, colorTemp, true );
 		}
 	}
+
+	// プレイヤーの描画
 
 	//DrawString( 20, 20, "InGameScene", GetColor( 0, 0, 0 ) );
 }
@@ -95,12 +96,80 @@ void InGameScene::StartJingle(){
 }
 
 void InGameScene::Input(){
-	if( InputManager::GetInstance()->IsPush( KeyType::Enter ) ){
+
+	InputManager* pInputMng = InputManager::GetInstance();
+
+	if( pInputMng->IsPush( KeyType::Key_Reset ) )		Reset();
+	else if( pInputMng->IsPush( KeyType::Key_Up ) )		Move( DirType::Dir_Up );
+	else if( pInputMng->IsPush( KeyType::Key_Down ) )	Move( DirType::Dir_Down );
+	else if( pInputMng->IsPush( KeyType::Key_Left ) )	Move( DirType::Dir_Left );
+	else if( pInputMng->IsPush( KeyType::Key_Right ) )	Move( DirType::Dir_Right );
+
+	if( IsClear() ){
 		step = Step_ClearJingle;
 	}
 }
 
 void InGameScene::ClearJingle(){
 	step = Step_End;
-	SceneManager::GetInstance()->SetNextScene( SceneID::id_Result );
+	SceneManager::GetInstance()->SetNextScene( SceneID::ID_Result );
+}
+
+bool InGameScene::IsClear() const {
+	for( int y = 0; y < STAGE_HEIGHT; y++ ){
+		for( int x = 0; x < STAGE_WIDTH; x++ )
+			if(stageData[y][x] == ObjectType::Obj_UnsetCrate ){
+				return false;
+		}
+	}
+
+	return true;
+}
+
+void InGameScene::Reset(){
+	for( int y = 0; y < STAGE_HEIGHT; y++ ){
+		for( int x = 0; x < STAGE_WIDTH; x++ ){
+			stageData[y][x] = SampleStage[y][x];
+			if( stageData[y][x] == ObjectType::Obj_Player ){
+				playerX = x;
+				playerY = y;
+				stageData[y][x] = ObjectType::Obj_Ground;
+			}
+		}
+	}
+}
+
+void InGameScene::Move( DirType dir ){
+	if( dir < DirType::Dir_Up && dir >= DirType::Dir_Max ){
+		return;
+	}
+
+	int nextX = playerX;
+	int nextY = playerY;
+	int next2X = playerX;
+	int next2Y = playerY;
+
+	switch( dir )
+	{
+	case Dir_Up:
+		nextY -= 1;
+		next2Y -= 2;
+		break;
+	case Dir_Down:
+		nextY += 1;
+		next2Y += 2;
+		break;
+	case Dir_Left:
+		nextX -= 1;
+		next2X -= 2;
+		break;
+	case Dir_Right:
+		nextX += 1;
+		next2X += 2;
+		break;
+	case Dir_Max:
+		break;
+	default:
+		break;
+	}
 }

@@ -22,6 +22,17 @@ private:
 
 	void ClearJingle();
 
+// 倉庫番に関係する関数群
+private:
+	// ゲームのクリア判定
+	bool IsClear() const;
+
+	// 初期状態にリセット
+	void Reset();
+
+	// 移動処理
+	void Move( DirType dir );
+
 private:
 	int stageData[STAGE_HEIGHT][STAGE_WIDTH];
 	int playerX;

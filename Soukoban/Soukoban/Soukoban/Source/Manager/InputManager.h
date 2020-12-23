@@ -34,7 +34,7 @@ public:
 	bool IsPull( KeyType key ) const;
 
 private:
-	KeyState state[KeyType::Max];
+	KeyState state[KeyType::Key_Max];
 };
 
 #endif // !INPUT_MANAGER_H

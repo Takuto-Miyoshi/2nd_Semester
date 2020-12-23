@@ -34,6 +34,9 @@
     <ClCompile Include="Source\Manager\GameManager.cpp">
       <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Manager\InputManager.cpp">
+      <Filter>ソース ファイル\Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Manager\SceneManager.h">
@@ -66,10 +69,5 @@
     <ClInclude Include="Source\Manager\GameManager.h">
       <Filter>ソース ファイル\Manager</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Source\Manager\InputManager.cpp">
-      <Filter>ソース ファイル\Manager</Filter>
-    </None>
   </ItemGroup>
 </Project>

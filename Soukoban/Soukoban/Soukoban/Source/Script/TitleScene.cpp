@@ -40,9 +40,9 @@ void TitleScene::LogoIn(){
 }
 
 void TitleScene::Input(){
-	if( InputManager::GetInstance()->IsPush( KeyType::Enter ) ){
+	if( InputManager::GetInstance()->IsPush( KeyType::Key_Enter ) ){
 		step = Step_End;
-		SceneManager::GetInstance()->SetNextScene( SceneID::id_InGame );
+		SceneManager::GetInstance()->SetNextScene( SceneID::ID_InGame );
 	}
 }
 

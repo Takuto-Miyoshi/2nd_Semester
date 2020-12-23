@@ -4,12 +4,12 @@
 
 // シーンID
 enum SceneID{
-	id_Title,		// タイトル
-	id_InGame,		// インゲーム
-	id_Result,		// リザルト
+	ID_Title,		// タイトル
+	ID_InGame,		// インゲーム
+	ID_Result,		// リザルト
 
-	id_Max,
-	id_Invalid		// 無効値
+	ID_Max,
+	ID_Invalid		// 無効値
 };
 
 // ステージのサイズ
@@ -21,12 +21,22 @@ const int CHIP_WIDTH = 32;
 const int CHIP_HEIGHT = 32;
 
 enum ObjectType{
-	Ground,			// 地面
-	Wall,			// 壁
-	Player,			// プレイヤーの初期地点
-	Target,			// クレート配置場所
-	UnsetCrate,		// 未配置のクレート
-	SetCrate = 7	// 設置済みのクレート(設置場所 + 未配置クレート = 7)
+	Obj_Ground,			// 地面
+	Obj_Wall,			// 壁
+	Obj_Player,			// プレイヤーの初期地点
+	Obj_Target,			// クレート配置場所
+	Obj_UnsetCrate,		// 未配置のクレート
+	Obj_SetCrate = 7	// 設置済みのクレート(設置場所 + 未配置クレート = 7)
+};
+
+// 方向
+enum DirType{
+	Dir_Up,
+	Dir_Down,
+	Dir_Left,
+	Dir_Right,
+
+	Dir_Max
 };
 
 #endif // !DEFINITION_H

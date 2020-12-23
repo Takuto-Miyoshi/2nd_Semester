@@ -35,8 +35,8 @@ bool ResultScene::IsEnd() const{
 }
 
 void ResultScene::Input(){
-	if( InputManager::GetInstance()->IsPush( KeyType::Enter ) ){
+	if( InputManager::GetInstance()->IsPush( KeyType::Key_Enter ) ){
 		step = Step_End;
-		SceneManager::GetInstance()->SetNextScene( SceneID::id_Title );
+		SceneManager::GetInstance()->SetNextScene( SceneID::ID_Title );
 	}
 }

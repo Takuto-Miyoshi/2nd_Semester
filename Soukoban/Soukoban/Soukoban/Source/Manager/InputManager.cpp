@@ -10,7 +10,7 @@ InputManager::~InputManager(){
 }
 
 void InputManager::Update(){
-	for( int i = 0; i < KeyType::Max; i++ ){
+	for( int i = 0; i < KeyType::Key_Max; i++ ){
 		// 前回のキーの入力状態を取得
 		const bool now = ( CheckHitKey( KEY_ASSIGN[i] ) == 1 );
 
@@ -25,19 +25,19 @@ void InputManager::Update(){
 }
 
 bool InputManager::IsPush( KeyType key ) const{
-	if( key == KeyType::Max )return false;
+	if( key == KeyType::Key_Max )return false;
 
 	return state[key].push;
 }
 
 bool InputManager::IsOn( KeyType key ) const{
-	if( key == KeyType::Max )return false;
+	if( key == KeyType::Key_Max )return false;
 
 	return state[key].on;
 }
 
 bool InputManager::IsPull( KeyType key ) const{
-	if( key == KeyType::Max )return false;
+	if( key == KeyType::Key_Max )return false;
 
 	return state[key].pull;
 }
