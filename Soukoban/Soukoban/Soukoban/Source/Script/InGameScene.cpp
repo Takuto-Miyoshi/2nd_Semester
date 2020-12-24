@@ -29,16 +29,8 @@ const int SampleStage[STAGE_HEIGHT][STAGE_WIDTH] = {
 
 InGameScene::InGameScene():playerX( 0 ), playerY( 0 ){
 
-	for( int y = 0; y < STAGE_HEIGHT; y++ ){
-		for( int x = 0; x < STAGE_WIDTH; x++ ){
-			stageData[y][x] = SampleStage[y][x];
-			if( stageData[y][x] == ObjectType::Obj_Player ){
-				playerX = x;
-				playerY = y;
-				stageData[y][x] = ObjectType::Obj_Ground;
-			}
-		}
-	}
+	Reset();
+
 	step = Step_StartJingle;
 }
 
@@ -83,8 +75,13 @@ void InGameScene::Draw(){
 	}
 
 	// プレイヤーの描画
+	DrawBox( playerX * CHIP_WIDTH, playerY * CHIP_HEIGHT, playerX * CHIP_WIDTH + CHIP_WIDTH, playerY * CHIP_HEIGHT + CHIP_HEIGHT, GetColor( 255, 255, 0 ), true );
 
-	//DrawString( 20, 20, "InGameScene", GetColor( 0, 0, 0 ) );
+	if( IsClear() ){
+		DrawString( 400, 240, "!! Game Clear !!", GetColor( 255, 255, 0 ) );
+	}
+
+	DrawString( 20, 20, "InGameScene", GetColor( 0, 0, 0 ) );
 }
 
 bool InGameScene::IsEnd() const{
@@ -111,15 +108,18 @@ void InGameScene::Input(){
 }
 
 void InGameScene::ClearJingle(){
-	step = Step_End;
-	SceneManager::GetInstance()->SetNextScene( SceneID::ID_Result );
+	if( InputManager::GetInstance()->IsPush( KeyType::Key_Enter ) ){
+		step = Step_End;
+		SceneManager::GetInstance()->SetNextScene( SceneID::ID_Result );
+	}
 }
 
 bool InGameScene::IsClear() const {
 	for( int y = 0; y < STAGE_HEIGHT; y++ ){
-		for( int x = 0; x < STAGE_WIDTH; x++ )
-			if(stageData[y][x] == ObjectType::Obj_UnsetCrate ){
+		for( int x = 0; x < STAGE_WIDTH; x++ ){
+			if( stageData[y][x] == ObjectType::Obj_UnsetCrate ){
 				return false;
+			}
 		}
 	}
 
@@ -167,9 +167,47 @@ void InGameScene::Move( DirType dir ){
 		nextX += 1;
 		next2X += 2;
 		break;
-	case Dir_Max:
-		break;
-	default:
-		break;
+	}
+
+	// 移動先が画面外ならreturn
+	if( nextX < 0 || nextY < 0 || nextX > ( STAGE_WIDTH - 1 ) || nextY > ( STAGE_HEIGHT - 1 ) ){
+		return;
+	}
+
+	if( stageData[nextY][nextX] == ObjectType::Obj_Ground || stageData[nextY][nextX] == ObjectType::Obj_Target ){
+		playerX = nextX;
+		playerY = nextY;
+	}
+	// 移動先が箱の場合
+	else if( stageData[nextY][nextX] == ObjectType::Obj_UnsetCrate || stageData[nextY][nextX] == ObjectType::Obj_SetCrate ){
+		// 画面外チェック
+		if( next2X < 0 || next2Y < 0 || next2X > ( STAGE_WIDTH - 1 ) || next2Y > ( STAGE_HEIGHT - 1 ) ){
+			return;
+		}
+
+		// 移動できるマップチップでない場合はreturn
+		if( stageData[next2Y][next2X] != ObjectType::Obj_Ground && stageData[next2Y][next2X] != ObjectType::Obj_Target ){
+			return;
+		}
+
+		// となりの位置を変更する
+		if( stageData[nextY][nextX] == ObjectType::Obj_UnsetCrate ){
+			stageData[nextY][nextX] = ObjectType::Obj_Ground;
+		}
+		else{
+			stageData[nextY][nextX] = ObjectType::Obj_Target;
+		}
+
+		// 箱を移動させる
+		if( stageData[next2Y][next2X] == ObjectType::Obj_Ground ){
+			stageData[next2Y][next2X] = ObjectType::Obj_UnsetCrate;
+		}
+		else{
+			stageData[next2Y][next2X] = ObjectType::Obj_SetCrate;
+		}
+
+		// プレイヤーの移動
+		playerX = nextX;
+		playerY = nextY;
 	}
 }
